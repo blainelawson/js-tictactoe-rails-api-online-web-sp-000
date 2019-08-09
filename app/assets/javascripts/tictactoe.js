@@ -136,6 +136,7 @@ function attachListeners() {
 
     $("#clear").click(function(){
         resetBoard()
+        setMessage("")
     })
 
     $("#previous").click(function() {
@@ -145,13 +146,10 @@ function attachListeners() {
             for (let i = previousStartIndex; i < data.data.length; i++) {
                     var gameId = data.data[i].id
                     // debugger
-                    console.log("Game id: ", gameId) // WHY IS THIS ID FINE?
                     $("#games").append(`<button id="${gameId}">${gameId}</button>`)
-
                     $(`#${gameId}`).on('click', function(element){
                         // debugger
-                            console.log("Game id: ",gameId) // WHY IS THIS ID DIFFERENT THAN THE ABOVE???
-                        $.get('/games/' + gameId, function(game) {
+                        $.get('/games/' + element.target.id, function(game) {
                         turn = 0
                         for (let index = 0; index < squares.length; index++){
                             // debugger
